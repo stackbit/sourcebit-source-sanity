@@ -5,6 +5,54 @@ const { parseEntryId, normalizeEntries } = require("./lib/sanity-util");
 
 module.exports.name = pkg.name;
 
+module.exports.getOptionsFromSetup = ({ answers }) => {
+  return {
+    accessToken: answers.accessToken,
+    dataset: answers.dataset,
+    projectId: answers.projectId,
+    useCdn: answers.useCdn
+  };
+};
+
+module.exports.getSetup = ({ chalk, currentOptions }) => {
+  return [
+    {
+      type: "input",
+      name: "accessToken",
+      message: `What is your Sanity API token? ${chalk.reset(
+        "To create one, see https://www.sanity.io/docs/http-auth."
+      )}`,
+      validate: value =>
+        value.length > 0 ? true : "The API token cannot be empty.",
+      default: currentOptions.accessToken
+    },
+    {
+      type: "input",
+      name: "projectId",
+      message: `What is your Sanity project ID?`,
+      validate: value =>
+        value.length > 0 ? true : "The project ID cannot be empty.",
+      default: currentOptions.projectId
+    },
+    {
+      type: "input",
+      name: "dataset",
+      message: `What is the name of your dataset?`,
+      validate: value =>
+        value.length > 0 ? true : "The dataset cannot be empty.",
+      default: currentOptions.dataset
+    },
+    {
+      type: "confirm",
+      name: "useCdn",
+      message: `Do you want to use the API CDN? ${chalk.reset(
+        "To learn more, see https://www.sanity.io/docs/api-cdn."
+      )}`,
+      default: currentOptions.useCdn || false
+    }
+  ];
+};
+
 module.exports.options = {
   accessToken: {
     env: "SANITY_ACCESS_TOKEN",
@@ -36,7 +84,7 @@ module.exports.bootstrap = async ({
 }) => {
   // If preview is not explicitly set, we default to `true` when in watch mode.
   const isPreview =
-    options.isPreview !== undefined ? options.isPreview : options.watch;
+    options.preview !== undefined ? options.preview : options.watch;
   const client = sanityClient({
     projectId: options.projectId,
     dataset: options.dataset,
@@ -100,9 +148,25 @@ module.exports.bootstrap = async ({
 module.exports.transform = ({ data, getPluginContext, options }) => {
   const { entries = {} } = getPluginContext();
   const normalizedEntries = normalizeEntries({ entries, options });
+  const models = {};
+
+  normalizedEntries.forEach(entry => {
+    const { __metadata: meta, ...fields } = entry;
+
+    if (meta.modelName.indexOf("system.") === 0) return;
+
+    models[meta.modelName] = models[meta.modelName] || {
+      fieldNames: Object.keys(fields),
+      modelName: meta.modelName,
+      projectEnvironment: meta.projectEnvironment,
+      projectId: meta.projectId,
+      source: meta.source
+    };
+  });
 
   return {
     ...data,
+    models: Object.values(models),
     objects: data.objects.concat(normalizedEntries)
   };
 };
