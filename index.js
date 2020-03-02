@@ -117,7 +117,13 @@ module.exports.bootstrap = async ({
       const { entries } = getPluginContext();
 
       if (update.transition === "appear" || update.transition === "update") {
-        const { canonicalId } = parseEntryId(update.documentId);
+        const { canonicalId, isDraft } = parseEntryId(update.documentId);
+
+        // We discard the entry if it's a draft and preview is disabled.
+        if (isDraft && !isPreview) {
+          return result;
+        }
+
         const updatedEntries = { ...entries, [canonicalId]: update.result };
 
         setPluginContext({
@@ -128,7 +134,11 @@ module.exports.bootstrap = async ({
       } else if (update.transition === "disappear") {
         const { canonicalId } = parseEntryId(update.documentId);
 
-        if (!entries[canonicalId]) return;
+        // We discard the entry if it's a draft and preview is disabled, or if
+        // it doesn't exist in the first place.
+        if ((isDraft && !isPreview) || !entries[canonicalId]) {
+          return result;
+        }
 
         const { [canonicalId]: removedId, ...remainingEntries } = entries;
 
