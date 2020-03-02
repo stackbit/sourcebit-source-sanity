@@ -132,7 +132,7 @@ module.exports.bootstrap = async ({
 
         debouncedRefresh();
       } else if (update.transition === "disappear") {
-        const { canonicalId } = parseEntryId(update.documentId);
+        const { canonicalId, isDraft } = parseEntryId(update.documentId);
 
         // We discard the entry if it's a draft and preview is disabled, or if
         // it doesn't exist in the first place.
