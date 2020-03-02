@@ -108,6 +108,86 @@ const MOCK_ENTRIES = [
 ];
 
 describe("`bootstrap()`", () => {
+  test("creates a Sanity client with the right parameters", async () => {
+    const mockSanityClient = {
+      fetch: jest.fn(async () => MOCK_ENTRIES.slice(0, 2))
+    };
+
+    sanityClient.mockImplementationOnce(() => mockSanityClient);
+
+    const getPluginContext = jest.fn();
+    const options = {
+      accessToken: "1q2w3e4r5t6y7u8i9o0p",
+      dataset: "my-dataset",
+      projectId: "my-project-id",
+      query: sanityPlugin.options.query.default,
+      queryParameters: sanityPlugin.options.queryParameters.default,
+      useCdn: true
+    };
+    const refresh = jest.fn();
+    const setPluginContext = jest.fn();
+
+    await sanityPlugin.bootstrap({
+      getPluginContext,
+      options,
+      refresh,
+      setPluginContext
+    });
+
+    expect(sanityClient).toHaveBeenCalledTimes(1);
+    expect(sanityClient.mock.calls[0][0].token).toBe(options.accessToken);
+    expect(sanityClient.mock.calls[0][0].dataset).toBe(options.dataset);
+    expect(sanityClient.mock.calls[0][0].projectId).toBe(options.projectId);
+    expect(sanityClient.mock.calls[0][0].useCdn).toBe(options.useCdn);
+
+    expect(mockSanityClient.fetch).toHaveBeenCalledTimes(1);
+    expect(mockSanityClient.fetch.mock.calls[0][0]).toBe(
+      `*[!(_id in path("_.**"))]`
+    );
+    expect(mockSanityClient.fetch.mock.calls[0][1]).toEqual({});
+  });
+
+  test("sets up a listening socket with the right parameters", async () => {
+    const mockSubscribeFn = jest.fn();
+    const mockSanityClient = {
+      fetch: jest.fn(async () => MOCK_ENTRIES.slice(0, 2)),
+      listen: jest.fn(() => ({
+        subscribe: mockSubscribeFn
+      }))
+    };
+
+    sanityClient.mockImplementationOnce(() => mockSanityClient);
+
+    const getPluginContext = jest.fn();
+    const options = {
+      accessToken: "1q2w3e4r5t6y7u8i9o0p",
+      dataset: "my-dataset",
+      projectId: "my-project-id",
+      query: sanityPlugin.options.query.default,
+      queryParameters: sanityPlugin.options.queryParameters.default,
+      useCdn: true,
+      watch: true
+    };
+    const refresh = jest.fn();
+    const setPluginContext = jest.fn();
+
+    await sanityPlugin.bootstrap({
+      getPluginContext,
+      options,
+      refresh,
+      setPluginContext
+    });
+
+    expect(mockSanityClient.listen).toHaveBeenCalledTimes(1);
+    expect(mockSanityClient.listen.mock.calls[0][0]).toBe(
+      `*[!(_id in path("_.**"))]`
+    );
+    expect(mockSanityClient.listen.mock.calls[0][1]).toEqual({});
+
+    expect(mockSubscribeFn).toHaveBeenCalledTimes(1);
+    expect(mockSubscribeFn.mock.calls[0][0]).toBeInstanceOf(Function);
+  });
+
   test("retrieves entries and saves them to the context hashed by ID", async () => {
     const mockSanityClient = {
       fetch: jest.fn(async () => MOCK_ENTRIES.slice(0, 2))

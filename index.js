@@ -62,7 +62,7 @@ module.exports.options = {
   isPreview: {},
   projectId: {},
   query: {
-    default: "*[]"
+    default: `*[!(_id in path("_.**"))]`
   },
   queryParameters: {
     default: {}
@@ -115,9 +115,6 @@ module.exports.bootstrap = async ({
   if (options.watch) {
     client.listen(options.query, options.queryParameters).subscribe(update => {
       const { entries } = getPluginContext();
-
-      // Not interested in mutations to internal objects (e.g. `_.listeners.*`)
-      if (update.documentId[0] === "_") return;
 
       if (update.transition === "appear" || update.transition === "update") {
         const { canonicalId } = parseEntryId(update.documentId);
