@@ -104,6 +104,66 @@ const MOCK_ENTRIES = [
     uploadId: "8wuwizczsLo1ibusTDGnssdhAHTiW3zX",
     url:
       "https://cdn.sanity.io/images/kz6i252u/production/54944af18882e795452e43957aa43e004e4f8cfc-803x803.png"
+  },
+  {
+    _createdAt: "2020-01-29T14:48:14Z",
+    _id: "drafts.icb22HOpscEJNDFs0yLkbZ",
+    _rev: "ic6ac1-ez9-k4e-hhk-d4kyrtanh",
+    _type: "post",
+    _updatedAt: "2020-03-02T16:53:44Z",
+    content:
+      "\nPhoto by [Anders Jildén](https://unsplash.com/photos/uO4Au3LrCtk)\n\n**Iceland** Enim nec dui nunc mattis enim ut tellus elementum sagittis. *Felis bibendum ut tristique et egestas quis ipsum suspendisse*. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Orci ac auctor augue mauris. Ut pharetra sit amet aliquam id diam. Lectus arcu bibendum at varius vel pharetra. Id nibh tortor id aliquet lectus proin nibh. Duis ut diam quam nulla porttitor massa id neque aliquam. Feugiat nibh sed pulvinar proin gravida. Dolor purus non enim praesent elementum. Pharetra convallis posuere morbi leo urna molestie. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere.\n\n> Iceland, I'm in love with that country, the people are incredible. - Kit Harington\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit ut aliquam purus sit. Massa placerat duis ultricies lacus sed. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Pulvinar neque laoreet suspendisse interdum consectetur libero. Lacus viverra vitae congue eu consequat ac felis donec et. Imperdiet dui accumsan sit amet nulla facilisi. Faucibus turpis in eu mi bibendum neque. Magna etiam tempor orci eu. Cursus turpis massa tincidunt dui ut ornare. A condimentum vitae sapien pellentesque habitant. Ut porttitor leo a diam sollicitudin tempor id eu.\n\nPulvinar pellentesque habitant morbi tristique senectus et netus et. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Erat nam at lectus urna duis. Lacinia quis vel eros donec ac odio. Eget nulla facilisi etiam dignissim diam quis. Arcu dictum varius duis at consectetur lorem donec massa. Egestas tellus rutrum tellus pellentesque eu. Egestas erat imperdiet sed euismod nisi porta. Nec feugiat in fermentum posuere urna. Viverra ipsum nunc aliquet bibendum enim. Fermentum odio eu feugiat pretium. Vestibulum rhoncus est pellentesque elit. Elit ut aliquam purus sit amet luctus venenatis. Donec ac odio tempor orci dapibus ultrices in. Vitae justo eget magna fermentum. At tellus at urna condimentum mattis pellentesque id nibh tortor. Arcu dictum varius duis at consectetur lorem donec massa. Malesuada proin libero nunc consequat interdum varius sit amet. Dui accumsan sit amet nulla facilisi. Ut venenatis tellus in metus vulputate.\n",
+    content_img_path: {
+      _type: "image",
+      asset: {
+        _ref: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+        _type: "reference"
+      }
+    },
+    date: "2019-03-27",
+    excerpt:
+      "Iceland is a Nordic country between the North Atlantic and the Arctic Ocean. It has a population of 325,671 and an area of 103,000 km2 (40,000 sq mi), making it the most sparsely populated country in Europe.",
+    layout: "post",
+    stackbit_model_type: "page",
+    stackbit_url_path: "/_posts/2019-03-27-fragments-of-iceland",
+    thumb_img_path: {
+      _type: "image",
+      asset: {
+        _ref: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+        _type: "reference"
+      }
+    },
+    title: "Fragments of Iceland: a draft"
+  },
+  {
+    _createdAt: "2020-01-29T14:48:14Z",
+    _id: "icb22HOpscEJNDFs0yLkbZ",
+    _rev: "icb22HOpscEJNDFs0yLkRP",
+    _type: "post",
+    _updatedAt: "2020-01-29T14:48:14Z",
+    content:
+      "\nPhoto by [Anders Jildén](https://unsplash.com/photos/uO4Au3LrCtk)\n\n**Iceland** Enim nec dui nunc mattis enim ut tellus elementum sagittis. *Felis bibendum ut tristique et egestas quis ipsum suspendisse*. Est pellentesque elit ullamcorper dignissim cras tincidunt lobortis. Orci ac auctor augue mauris. Ut pharetra sit amet aliquam id diam. Lectus arcu bibendum at varius vel pharetra. Id nibh tortor id aliquet lectus proin nibh. Duis ut diam quam nulla porttitor massa id neque aliquam. Feugiat nibh sed pulvinar proin gravida. Dolor purus non enim praesent elementum. Pharetra convallis posuere morbi leo urna molestie. Vulputate enim nulla aliquet porttitor lacus luctus accumsan tortor posuere.\n\n> Iceland, I'm in love with that country, the people are incredible. - Kit Harington\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consectetur adipiscing elit ut aliquam purus sit. Massa placerat duis ultricies lacus sed. Ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at. Pulvinar neque laoreet suspendisse interdum consectetur libero. Lacus viverra vitae congue eu consequat ac felis donec et. Imperdiet dui accumsan sit amet nulla facilisi. Faucibus turpis in eu mi bibendum neque. Magna etiam tempor orci eu. Cursus turpis massa tincidunt dui ut ornare. A condimentum vitae sapien pellentesque habitant. Ut porttitor leo a diam sollicitudin tempor id eu.\n\nPulvinar pellentesque habitant morbi tristique senectus et netus et. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet. Erat nam at lectus urna duis. Lacinia quis vel eros donec ac odio. Eget nulla facilisi etiam dignissim diam quis. Arcu dictum varius duis at consectetur lorem donec massa. Egestas tellus rutrum tellus pellentesque eu. Egestas erat imperdiet sed euismod nisi porta. Nec feugiat in fermentum posuere urna. Viverra ipsum nunc aliquet bibendum enim. Fermentum odio eu feugiat pretium. Vestibulum rhoncus est pellentesque elit. Elit ut aliquam purus sit amet luctus venenatis. Donec ac odio tempor orci dapibus ultrices in. Vitae justo eget magna fermentum. At tellus at urna condimentum mattis pellentesque id nibh tortor. Arcu dictum varius duis at consectetur lorem donec massa. Malesuada proin libero nunc consequat interdum varius sit amet. Dui accumsan sit amet nulla facilisi. Ut venenatis tellus in metus vulputate.\n",
+    content_img_path: {
+      _type: "image",
+      asset: {
+        _ref: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+        _type: "reference"
+      }
+    },
+    date: "2019-03-27",
+    excerpt:
+      "Iceland is a Nordic country between the North Atlantic and the Arctic Ocean. It has a population of 325,671 and an area of 103,000 km2 (40,000 sq mi), making it the most sparsely populated country in Europe.",
+    layout: "post",
+    stackbit_model_type: "page",
+    stackbit_url_path: "/_posts/2019-03-27-fragments-of-iceland",
+    thumb_img_path: {
+      _type: "image",
+      asset: {
+        _ref: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+        _type: "reference"
+      }
+    },
+    title: "Fragments of Iceland"
   }
 ];
 
@@ -216,6 +276,35 @@ describe("`bootstrap()`", () => {
         [MOCK_ENTRIES[1]._id]: MOCK_ENTRIES[1]
       }
     });
+  });
+
+  test("saves both published and draft entries to the context", async () => {
+    const mockSanityClient = {
+      fetch: jest.fn(async () => MOCK_ENTRIES)
+    };
+
+    sanityClient.mockImplementationOnce(() => mockSanityClient);
+
+    const getPluginContext = jest.fn();
+    const options = {
+      watch: false
+    };
+    const refresh = jest.fn();
+    const setPluginContext = jest.fn();
+
+    await sanityPlugin.bootstrap({
+      getPluginContext,
+      options,
+      refresh,
+      setPluginContext
+    });
+
+    expect(setPluginContext).toHaveBeenCalledTimes(1);
+
+    const entriesInContext = setPluginContext.mock.calls[0][0].entries;
+
+    expect(entriesInContext["drafts.icb22HOpscEJNDFs0yLkbZ"]).toBeDefined();
+    expect(entriesInContext["icb22HOpscEJNDFs0yLkbZ"]).toBeDefined();
   });
 });
 
@@ -379,5 +468,63 @@ describe("`transform()`", () => {
     expect(object2.contentType).toBe(MOCK_ENTRIES[1].mimeType);
     expect(object2.fileName).toBe(MOCK_ENTRIES[1].originalFilename);
     expect(object2.url).toBe(MOCK_ENTRIES[1].url);
+  });
+
+  describe("merges drafts and published entries", () => {
+    test("discarding drafts when not in preview mode", () => {
+      const mockContext = {
+        entries: {
+          [MOCK_ENTRIES[2]._id]: MOCK_ENTRIES[2],
+          [MOCK_ENTRIES[3]._id]: MOCK_ENTRIES[3]
+        }
+      };
+      const mockData = {
+        files: [],
+        models: [],
+        objects: []
+      };
+      const mockOptions = {
+        dataset: "my-dataset",
+        preview: false,
+        projectId: "my-project-id"
+      };
+      const getPluginContext = jest.fn(() => mockContext);
+      const data = sanityPlugin.transform({
+        data: mockData,
+        getPluginContext,
+        options: mockOptions
+      });
+
+      expect(data.objects.length).toBe(1);
+      expect(data.objects[0].title).toBe("Fragments of Iceland");
+    });
+
+    test("giving priority to drafts when in preview mode", () => {
+      const mockContext = {
+        entries: {
+          [MOCK_ENTRIES[2]._id]: MOCK_ENTRIES[2],
+          [MOCK_ENTRIES[3]._id]: MOCK_ENTRIES[3]
+        }
+      };
+      const mockData = {
+        files: [],
+        models: [],
+        objects: []
+      };
+      const mockOptions = {
+        dataset: "my-dataset",
+        preview: true,
+        projectId: "my-project-id"
+      };
+      const getPluginContext = jest.fn(() => mockContext);
+      const data = sanityPlugin.transform({
+        data: mockData,
+        getPluginContext,
+        options: mockOptions
+      });
+
+      expect(data.objects.length).toBe(1);
+      expect(data.objects[0].title).toBe("Fragments of Iceland: a draft");
+    });
   });
 });

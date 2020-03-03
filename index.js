@@ -82,9 +82,6 @@ module.exports.bootstrap = async ({
   refresh,
   setPluginContext
 }) => {
-  // If preview is not explicitly set, we default to `true` when in watch mode.
-  const isPreview =
-    options.preview !== undefined ? options.preview : options.watch;
   const client = sanityClient({
     projectId: options.projectId,
     dataset: options.dataset,
@@ -93,18 +90,12 @@ module.exports.bootstrap = async ({
   });
   const entries = await client.fetch(options.query, options.queryParameters);
   const entriesById = entries.reduce((result, entry) => {
-    const { canonicalId, isDraft } = parseEntryId(entry._id);
+    if (!entry._id) return result;
 
-    // We discard the entry if it's a draft and preview is disabled, or if
-    // there's already an entry for this ID and the one we're processing now
-    // isn't a draft (because drafts take precedence).
-    if ((isDraft && !isPreview) || (result[canonicalId] && !isDraft)) {
-      return result;
-    }
-
-    result[canonicalId] = entry;
-
-    return result;
+    return {
+      ...result,
+      [entry._id]: entry
+    };
   }, {});
   const debouncedRefresh = debounce(refresh, 500);
 
@@ -114,17 +105,14 @@ module.exports.bootstrap = async ({
 
   if (options.watch) {
     client.listen(options.query, options.queryParameters).subscribe(update => {
+      const { documentId } = update;
+
+      if (!documentId) return;
+
       const { entries } = getPluginContext();
 
       if (update.transition === "appear" || update.transition === "update") {
-        const { canonicalId, isDraft } = parseEntryId(update.documentId);
-
-        // We discard the entry if it's a draft and preview is disabled.
-        if (isDraft && !isPreview) {
-          return result;
-        }
-
-        const updatedEntries = { ...entries, [canonicalId]: update.result };
+        const updatedEntries = { ...entries, [documentId]: update.result };
 
         setPluginContext({
           entries: updatedEntries
@@ -132,15 +120,7 @@ module.exports.bootstrap = async ({
 
         debouncedRefresh();
       } else if (update.transition === "disappear") {
-        const { canonicalId, isDraft } = parseEntryId(update.documentId);
-
-        // We discard the entry if it's a draft and preview is disabled, or if
-        // it doesn't exist in the first place.
-        if ((isDraft && !isPreview) || !entries[canonicalId]) {
-          return result;
-        }
-
-        const { [canonicalId]: removedId, ...remainingEntries } = entries;
+        const { [documentId]: removedId, ...remainingEntries } = entries;
 
         setPluginContext({
           entries: remainingEntries
@@ -153,21 +133,55 @@ module.exports.bootstrap = async ({
 };
 
 module.exports.transform = ({ data, getPluginContext, options }) => {
+  // If preview is not explicitly set, we default to `true` when in watch mode.
+  const isPreview =
+    options.preview !== undefined ? options.preview : options.watch;
   const { entries = {} } = getPluginContext();
-  const normalizedEntries = normalizeEntries({ entries, options });
-  const models = {};
 
-  normalizedEntries.forEach(entry => {
+  // Merging published entries with drafts.
+  const mergedEntries = Object.keys(entries).reduce((result, entryId) => {
+    const { canonicalId, isDraft } = parseEntryId(entryId);
+
+    // We discard this entry if it's a draft and we preview mode is disabled,
+    // or if there's already an entry for this canonical ID and the entry we
+    // are processing now is not a draft (if it is, it takes precedence).
+    if ((isDraft && !isPreview) || (result[canonicalId] && !isDraft)) {
+      return result;
+    }
+
+    console.log("---> adding", entryId, canonicalId);
+
+    return {
+      ...result,
+      [canonicalId]: entries[entryId]
+    };
+  }, {});
+
+  // Normalizing entries and resolving links. They're also converted to an
+  // array.
+  const normalizedEntries = normalizeEntries({
+    entries: mergedEntries,
+    options
+  });
+
+  // Iterating through the entries to compile a hash of models and normalize
+  // it.
+  const models = normalizedEntries.reduce((result, entry) => {
     const { __metadata: meta, ...fields } = entry;
 
-    models[meta.modelName] = models[meta.modelName] || {
-      fieldNames: Object.keys(fields),
-      modelName: meta.modelName,
-      projectEnvironment: meta.projectEnvironment,
-      projectId: meta.projectId,
-      source: meta.source
+    if (result[meta.modelName]) return result;
+
+    return {
+      ...result,
+      [meta.modelName]: {
+        fieldNames: Object.keys(fields),
+        modelName: meta.modelName,
+        projectEnvironment: meta.projectEnvironment,
+        projectId: meta.projectId,
+        source: meta.source
+      }
     };
-  });
+  }, {});
 
   return {
     ...data,
