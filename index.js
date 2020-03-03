@@ -160,8 +160,6 @@ module.exports.transform = ({ data, getPluginContext, options }) => {
   normalizedEntries.forEach(entry => {
     const { __metadata: meta, ...fields } = entry;
 
-    if (meta.modelName.indexOf("system.") === 0) return;
-
     models[meta.modelName] = models[meta.modelName] || {
       fieldNames: Object.keys(fields),
       modelName: meta.modelName,
