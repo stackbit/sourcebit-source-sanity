@@ -142,9 +142,9 @@ module.exports.transform = ({ data, getPluginContext, options }) => {
   const mergedEntries = Object.keys(entries).reduce((result, entryId) => {
     const { canonicalId, isDraft } = parseEntryId(entryId);
 
-    // We discard this entry if it's a draft and we preview mode is disabled,
-    // or if there's already an entry for this canonical ID and the entry we
-    // are processing now is not a draft (if it is, it takes precedence).
+    // We discard this entry if it's a draft and preview mode is disabled, or
+    // if there's already an entry for this canonical ID and the entry we are
+    // processing now is not a draft (if it is, it takes precedence).
     if ((isDraft && !isPreview) || (result[canonicalId] && !isDraft)) {
       return result;
     }
