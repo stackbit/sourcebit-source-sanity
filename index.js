@@ -149,8 +149,6 @@ module.exports.transform = ({ data, getPluginContext, options }) => {
       return result;
     }
 
-    console.log("---> adding", entryId, canonicalId);
-
     return {
       ...result,
       [canonicalId]: entries[entryId]
