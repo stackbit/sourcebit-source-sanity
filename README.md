@@ -6,7 +6,7 @@
 
 ## 👩‍🏫 Introduction
 
-With this plugin, you can add Sanity as a data source for Sourcebit. To connect your Contentful account, you need an [API token](https://www.sanity.io/docs/http-auth), your project ID and the name of your [dataset](https://www.sanity.io/docs/datasets).
+With this plugin, you can add Sanity as a data source for Sourcebit. To connect your Sanity account, you need an [API token](https://www.sanity.io/docs/http-auth), your project ID and the name of your [dataset](https://www.sanity.io/docs/datasets).
 
 ## 🏗 Installation
 
@@ -36,7 +36,7 @@ The plugin accepts the following configuration parameters. They can be supplied 
 | `queryParameters` | Object  | Public      | `{}`          |                       |           | The query parameters to pass to the Sanity API.                        |
 | `projectId`       | String  | Public      |               |                       |           | The ID of the Sanity project.                                          |
 | `useCdn`          | Boolean | Public      | `false`       |                       |           | Whether to use the [Data API CDN](https://www.sanity.io/docs/api-cdn). |
-| `watch`           | Boolean | Public      |               |                       | `watch`   | Whether to poll Contentful for content changes.                        |
+| `watch`           | Boolean | Public      |               |                       | `watch`   | Whether to poll Sanity for content changes.                            |
 
 ### 👀 Example configuration
 
