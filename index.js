@@ -183,7 +183,7 @@ module.exports.transform = ({ data, getPluginContext, options }) => {
 
   return {
     ...data,
-    models: Object.values(models),
+    models: data.models.concat(Object.values(models)),
     objects: data.objects.concat(normalizedEntries)
   };
 };
