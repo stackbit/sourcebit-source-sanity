@@ -120,7 +120,7 @@ module.exports.bootstrap = async ({
 
         debouncedRefresh();
       } else if (update.transition === "disappear") {
-        const { [documentId]: removedId, ...remainingEntries } = entries;
+        const { [documentId]: removedEntry, ...remainingEntries } = entries;
 
         setPluginContext({
           entries: remainingEntries
