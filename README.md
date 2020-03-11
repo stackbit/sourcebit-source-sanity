@@ -1,5 +1,7 @@
 # sourcebit-source-sanity
 
+![Node CI](https://github.com/stackbithq/sourcebit-source-sanity/workflows/Node%20CI/badge.svg?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/stackbithq/sourcebit-source-sanity/badge.svg?v=20200302)](https://coveralls.io/github/stackbithq/sourcebit-source-sanity)
 [![npm version](https://badge.fury.io/js/sourcebit-source-sanity.svg)](https://badge.fury.io/js/sourcebit-source-sanity)
 
 > A [Sanity](https://www.sanity.io) source plugin for [Sourcebit](https://github.com/stackbithq/sourcebit)
