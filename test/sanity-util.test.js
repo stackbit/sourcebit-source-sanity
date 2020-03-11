@@ -56,7 +56,22 @@ describe("`normalizeEntries()`", () => {
         _type: "someType",
         firstName: "John",
         lastName: "Doe"
-      }
+      },
+      mixedArray1: [
+        {
+          _type: "someType",
+          firstName: "John",
+          lastName: "Doe"
+        },
+        {
+          firstName: "Jane",
+          lastName: "Doe"
+        },
+        {
+          _ref: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+          _type: "reference"
+        }
+      ]
     },
     icb22HOpscEJNDFs0yLkZX: {
       _createdAt: "2020-01-29T14:48:14Z",
@@ -301,12 +316,39 @@ describe("`normalizeEntries()`", () => {
       normalizedEntries[0].nonExistingReferenceMultiple2
     ).not.toBeDefined();
 
-    // Custom objects have a proper metadata block.
+    // Custom objects should have a proper metadata block.
     expect(normalizedEntries[0].myObject1.firstName).toBe("John");
     expect(normalizedEntries[0].myObject1.lastName).toBe("Doe");
     expect(normalizedEntries[0].myObject1.__metadata.modelName).toBe(
       "someType"
     );
+
+    // Arrays can contain elements of mixed types.
+    expect(normalizedEntries[0].mixedArray1[0].firstName).toBe("John");
+    expect(normalizedEntries[0].mixedArray1[0].lastName).toBe("Doe");
+    expect(normalizedEntries[0].mixedArray1[0].__metadata.modelName).toBe(
+      "someType"
+    );
+
+    expect(normalizedEntries[0].mixedArray1[1].firstName).toBe("Jane");
+    expect(normalizedEntries[0].mixedArray1[1].lastName).toBe("Doe");
+    expect(normalizedEntries[0].mixedArray1[1].__metadata).not.toBeDefined();
+
+    expect(normalizedEntries[0].mixedArray1[2]).toEqual({
+      __metadata: {
+        id: "image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg",
+        source: "sourcebit-source-sanity",
+        modelName: "__asset",
+        projectId: "my-project-id",
+        projectEnvironment: "my-dataset",
+        createdAt: "2020-01-29T14:00:00Z",
+        updatedAt: "2020-01-29T15:00:00Z"
+      },
+      contentType: "image/jpeg",
+      fileName: "7.jpg",
+      url:
+        "https://cdn.sanity.io/images/kz6i252u/production/48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667.jpg"
+    });
   });
 });
 
