@@ -311,7 +311,7 @@ describe("`normalizeEntries()`", () => {
 });
 
 describe("`parseEntryId()`", () => {
-  test("returns an object with a `canonicalId  property, indicating the root/canonical ID of the entry", () => {
+  test("returns an object with a `canonicalId` property, indicating the root/canonical ID of the entry", () => {
     const op1 = sanityUtil.parseEntryId("drafts.icb22HOpscEJNDFs0yLkbZ");
     const op2 = sanityUtil.parseEntryId("icb22HOpscEJNDFs0yLkbZ");
     const op3 = sanityUtil.parseEntryId(
@@ -323,7 +323,7 @@ describe("`parseEntryId()`", () => {
     expect(op3.canonicalId).toBe("icb22HOpscEJNDFs0yLkbZ.drafts.whatever");
   });
 
-  test("returns an object with a `isDraft  property, indicating whether the entry ID corresponds to a draft entry", () => {
+  test("returns an object with a `isDraft` property, indicating whether the entry ID corresponds to a draft entry", () => {
     const op1 = sanityUtil.parseEntryId("drafts.icb22HOpscEJNDFs0yLkbZ");
     const op2 = sanityUtil.parseEntryId("icb22HOpscEJNDFs0yLkbZ");
     const op3 = sanityUtil.parseEntryId(
