@@ -4,7 +4,9 @@
   "description": "A Sanity plugin for Sourcebit",
   "main": "index.js",
   "scripts": {
-    "test": "npm run format",
+    "ci": "npm run format && npm test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "format": "prettier --write \"./**/*.{js,jsx,md,html}\""
   },
   "repository": {
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "husky": "^4.0.0",
+    "jest": "^25.1.0",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1"
   },
