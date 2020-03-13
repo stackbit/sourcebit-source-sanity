@@ -14,43 +14,72 @@ module.exports.getOptionsFromSetup = ({ answers }) => {
   };
 };
 
-module.exports.getSetup = ({ chalk, currentOptions }) => {
-  return [
-    {
-      type: "input",
-      name: "accessToken",
-      message: `What is your Sanity API token? ${chalk.reset(
-        "To create one, see https://www.sanity.io/docs/http-auth."
-      )}`,
-      validate: value =>
-        value.length > 0 ? true : "The API token cannot be empty.",
-      default: currentOptions.accessToken
-    },
-    {
-      type: "input",
-      name: "projectId",
-      message: `What is your Sanity project ID?`,
-      validate: value =>
-        value.length > 0 ? true : "The project ID cannot be empty.",
-      default: currentOptions.projectId
-    },
-    {
-      type: "input",
-      name: "dataset",
-      message: `What is the name of your dataset?`,
-      validate: value =>
-        value.length > 0 ? true : "The dataset cannot be empty.",
-      default: currentOptions.dataset
-    },
-    {
-      type: "confirm",
-      name: "useCdn",
-      message: `Do you want to use the API CDN? ${chalk.reset(
-        "To learn more, see https://www.sanity.io/docs/api-cdn."
-      )}`,
-      default: currentOptions.useCdn || false
+module.exports.getSetup = ({ chalk, currentOptions, inquirer, log }) => {
+  return async () => {
+    const options = await inquirer.prompt([
+      {
+        type: "input",
+        name: "accessToken",
+        message: `What is your Sanity API token? ${chalk.reset(
+          "To create one, see https://www.sanity.io/docs/http-auth."
+        )}`,
+        validate: value =>
+          value.length > 0 ? true : "The API token cannot be empty.",
+        default: currentOptions.accessToken
+      },
+      {
+        type: "input",
+        name: "projectId",
+        message: `What is your Sanity project ID?`,
+        validate: value =>
+          value.length > 0 ? true : "The project ID cannot be empty.",
+        default: currentOptions.projectId
+      },
+      {
+        type: "input",
+        name: "dataset",
+        message: `What is the name of your dataset?`,
+        validate: value =>
+          value.length > 0 ? true : "The dataset cannot be empty.",
+        default: currentOptions.dataset
+      },
+      {
+        type: "confirm",
+        name: "useCdn",
+        message: `Do you want to use the API CDN? ${chalk.reset(
+          "To learn more, see https://www.sanity.io/docs/api-cdn."
+        )}`,
+        default: currentOptions.useCdn || false
+      }
+    ]);
+
+    try {
+      const client = sanityClient({
+        projectId: options.projectId,
+        dataset: options.dataset,
+        token: options.accessToken,
+        useCdn: options.useCdn
+      });
+
+      await client.fetch("*", {});
+    } catch (error) {
+      console.log("");
+      log(
+        "We couldn't connect to Sanity using the credentials you provided. Please check they are correct and try again.",
+        "fail"
+      );
+      console.log("");
+
+      return module.exports.getSetup({
+        chalk,
+        currentOptions,
+        inquirer,
+        log
+      })();
     }
-  ];
+
+    return options;
+  };
 };
 
 module.exports.options = {
