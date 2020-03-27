@@ -96,6 +96,9 @@ module.exports.options = {
   queryParameters: {
     default: {}
   },
+  richTextOutputFormat: {
+    default: "html"
+  },
   useCdn: {
     default: false
   },
