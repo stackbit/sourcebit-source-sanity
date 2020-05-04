@@ -8,6 +8,7 @@ describe("`normalizeEntries()`", () => {
       _rev: "ic6ac1-ez9-k4e-hhk-d4kyrtanh",
       _type: "post",
       _updatedAt: "2020-03-02T16:53:44Z",
+      nullyField: null,
       slug: {
         _type: "slug",
         current: "fragments-of-iceland"
@@ -248,6 +249,9 @@ describe("`normalizeEntries()`", () => {
         "2020-01-29T15:00:00Z"
       );
     });
+
+    // Checking that `null` values are not present in the normalized value.
+    expect(normalizedEntries[0].nullyField).not.toBeDefined();
 
     // Checking that the `foxVillageRef` reference was resolved for all entries.
     expect(normalizedEntries[0].foxVillageRef.__metadata.id).toBe(
