@@ -44,5 +44,9 @@
       "npm run format",
       "git add"
     ]
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "trailingComma": "none"
   }
 }
