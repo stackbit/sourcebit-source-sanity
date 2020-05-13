@@ -61,7 +61,7 @@ module.exports.getSetup = ({ chalk, currentOptions, inquirer, log }) => {
         useCdn: options.useCdn
       });
 
-      await client.fetch("*", {});
+      await client.fetch("1", {});
     } catch (error) {
       console.log("");
       log(
