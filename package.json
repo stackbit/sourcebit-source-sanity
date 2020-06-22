@@ -1,52 +1,50 @@
 {
-  "name": "sourcebit-source-sanity",
-  "version": "0.3.1",
-  "description": "A Sanity plugin for Sourcebit",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "lint": "prettier --write \"./**/*.{js,json,jsx,md,html}\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stackbithq/sourcebit-source-sanity.git"
-  },
-  "keywords": [
-    "sanity",
-    "headless",
-    "headless-cms",
-    "jamstack",
-    "ssg"
-  ],
-  "author": "Stackbit",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stackbithq/sourcebit-source-sanity/issues"
-  },
-  "homepage": "https://github.com/stackbithq/sourcebit-source-sanity#readme",
-  "dependencies": {
-    "@sanity/client": "^0.147.3"
-  },
-  "devDependencies": {
-    "husky": "^4.0.0",
-    "jest": "^25.1.0",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,jsx,md,html}": [
-      "npm run format",
-      "git add"
-    ]
-  },
-  "prettier": {
-    "arrowParens": "avoid",
-    "trailingComma": "none"
-  }
+    "name": "sourcebit-source-sanity",
+    "version": "0.3.1",
+    "description": "A Sanity plugin for Sourcebit",
+    "main": "index.js",
+    "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "lint": "prettier --write \"./**/*.{js,json,jsx,md,html}\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stackbithq/sourcebit-source-sanity.git"
+    },
+    "keywords": [
+        "sanity",
+        "headless",
+        "headless-cms",
+        "jamstack",
+        "ssg"
+    ],
+    "author": "Stackbit",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/stackbithq/sourcebit-source-sanity/issues"
+    },
+    "homepage": "https://github.com/stackbithq/sourcebit-source-sanity#readme",
+    "dependencies": {
+        "@sanity/client": "^0.147.3"
+    },
+    "devDependencies": {
+        "@stackbit/prettier-config": "^1.0.0",
+        "husky": "^4.0.0",
+        "jest": "^25.1.0",
+        "lint-staged": "^9.5.0",
+        "prettier": "^1.19.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.{js,jsx,md,html}": [
+            "npm run format",
+            "git add"
+        ]
+    },
+    "prettier": "@stackbit/prettier-config"
 }
