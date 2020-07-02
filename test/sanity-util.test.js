@@ -8,6 +8,7 @@ describe('`normalizeEntries()`', () => {
             _rev: 'ic6ac1-ez9-k4e-hhk-d4kyrtanh',
             _type: 'post',
             _updatedAt: '2020-03-02T16:53:44Z',
+            nullyField: null,
             slug: {
                 _type: 'slug',
                 current: 'fragments-of-iceland'
@@ -234,6 +235,73 @@ describe('`normalizeEntries()`', () => {
             expect(entry.content_img_path.__metadata.createdAt).toBe('2020-01-29T14:00:00Z');
             expect(entry.content_img_path.__metadata.updatedAt).toBe('2020-01-29T15:00:00Z');
         });
+
+        // Checking that the `foxVillageRef` reference was resolved for all entries.
+        expect(normalizedEntries[0].foxVillageRef.__metadata.id).toBe(normalizedEntries[1].__metadata.id);
+        expect(normalizedEntries[0].foxVillageRef.title).toBe(normalizedEntries[1].title);
+        expect(normalizedEntries[2].foxVillageRef.__metadata.id).toBe(normalizedEntries[1].__metadata.id);
+        expect(normalizedEntries[2].foxVillageRef.title).toBe(normalizedEntries[1].title);
+
+        // Checking that the `slug` field was properly handled.
+        normalizedEntries.slice(0, 3).forEach(normalizedEntry => {
+            const originalEntry = mockEntries[normalizedEntry.__metadata.id];
+
+            expect(normalizedEntry.slug).toBe(originalEntry.slug.current);
+        });
+
+        // Checking that any custom fields present in image fields are preserved.
+        expect(normalizedEntries[0].content_img_path.myCustomField).toBe('my custom value');
+        expect(normalizedEntries[1].content_img_path.myCustomField).not.toBeDefined();
+        expect(normalizedEntries[2].content_img_path.myCustomField).not.toBeDefined();
+
+        // Checking that arrays of numbers are handled properly.
+        expect(normalizedEntries[0].arrayOfNumbers).toEqual([0, 1, 2]);
+
+        // Single references pointing to objects that don't exist should not be
+        // included in the formatted object.
+        expect(normalizedEntries[0].nonExistingReferenceSingle).not.toBeDefined();
+
+        // Arrays of references should contain only referenced entries that exist.
+        // If an element references an entry that doesn't exist, it should not be
+        // included in the formatted object.
+        expect(normalizedEntries[0].nonExistingReferenceMultiple1).toEqual([
+            {
+                __metadata: {
+                    id: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
+                    source: 'sourcebit-source-sanity',
+                    modelName: '__asset',
+                    projectId: 'my-project-id',
+                    projectEnvironment: 'my-dataset',
+                    createdAt: '2020-01-29T14:00:00Z',
+                    updatedAt: '2020-01-29T15:00:00Z'
+                },
+                contentType: 'image/jpeg',
+                fileName: '7.jpg',
+                url: 'https://cdn.sanity.io/images/kz6i252u/production/48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667.jpg'
+            }
+        ]);
+
+        // Arrays of references should contain only referenced entries that exist.
+        // If all the elements in the array point to references that don't exist,
+        // the field should not be included in the formatted object.
+        expect(normalizedEntries[0].nonExistingReferenceMultiple2).not.toBeDefined();
+
+        // Custom objects should have a proper metadata block.
+        expect(normalizedEntries[0].myObject1.firstName).toBe('John');
+        expect(normalizedEntries[0].myObject1.lastName).toBe('Doe');
+        expect(normalizedEntries[0].myObject1.__metadata.modelName).toBe('someType');
+
+        // Arrays can contain elements of mixed types.
+        expect(normalizedEntries[0].mixedArray1[0].firstName).toBe('John');
+        expect(normalizedEntries[0].mixedArray1[0].lastName).toBe('Doe');
+        expect(normalizedEntries[0].mixedArray1[0].__metadata.modelName).toBe('someType');
+
+        expect(normalizedEntries[0].mixedArray1[1].firstName).toBe('Jane');
+        expect(normalizedEntries[0].mixedArray1[1].lastName).toBe('Doe');
+        expect(normalizedEntries[0].mixedArray1[1].__metadata).not.toBeDefined();
+
+        // Checking that `null` values are not present in the normalized value.
+        expect(normalizedEntries[0].nullyField).not.toBeDefined();
 
         // Checking that the `foxVillageRef` reference was resolved for all entries.
         expect(normalizedEntries[0].foxVillageRef.__metadata.id).toBe(normalizedEntries[1].__metadata.id);

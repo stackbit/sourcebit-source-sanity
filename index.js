@@ -54,7 +54,7 @@ module.exports.getSetup = ({ chalk, currentOptions, inquirer, log }) => {
                 useCdn: options.useCdn
             });
 
-            await client.fetch('*', {});
+            await client.fetch('1', {});
         } catch (error) {
             console.log('');
             log("We couldn't connect to Sanity using the credentials you provided. Please check they are correct and try again.", 'fail');
