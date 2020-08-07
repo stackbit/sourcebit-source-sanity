@@ -1,6 +1,6 @@
 {
     "name": "sourcebit-source-sanity",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "A Sanity plugin for Sourcebit",
     "main": "index.js",
     "scripts": {
@@ -28,7 +28,7 @@
     "dependencies": {
         "@sanity/block-content-to-html": "^1.3.8",
         "@sanity/block-content-to-markdown": "0.0.5",
-        "@sanity/client": "^0.147.3"
+        "@sanity/client": "^1.149.18"
     },
     "devDependencies": {
         "@stackbit/prettier-config": "^1.0.0",
