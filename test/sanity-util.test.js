@@ -1,4 +1,5 @@
 const sanityUtil = require('../lib/sanity-util');
+const { normalizeEntries } = require('../lib/sanity-util');
 
 describe('`normalizeEntries()`', () => {
     const mockEntries = {
@@ -275,6 +276,7 @@ describe('`normalizeEntries()`', () => {
                     createdAt: '2020-01-29T14:00:00Z',
                     updatedAt: '2020-01-29T15:00:00Z'
                 },
+                metadata: mockEntries['image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg'].metadata,
                 contentType: 'image/jpeg',
                 fileName: '7.jpg',
                 url: 'https://cdn.sanity.io/images/kz6i252u/production/48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667.jpg'
@@ -342,6 +344,7 @@ describe('`normalizeEntries()`', () => {
                     createdAt: '2020-01-29T14:00:00Z',
                     updatedAt: '2020-01-29T15:00:00Z'
                 },
+                metadata: mockEntries['image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg'].metadata,
                 contentType: 'image/jpeg',
                 fileName: '7.jpg',
                 url: 'https://cdn.sanity.io/images/kz6i252u/production/48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667.jpg'
@@ -377,6 +380,7 @@ describe('`normalizeEntries()`', () => {
                 createdAt: '2020-01-29T14:00:00Z',
                 updatedAt: '2020-01-29T15:00:00Z'
             },
+            metadata: mockEntries['image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg'].metadata,
             contentType: 'image/jpeg',
             fileName: '7.jpg',
             url: 'https://cdn.sanity.io/images/kz6i252u/production/48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667.jpg'
