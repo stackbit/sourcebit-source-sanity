@@ -338,7 +338,7 @@ describe('`transform()`', () => {
         expect(model1.projectId).toBe(mockOptions.projectId);
         expect(model1.source).toBe('sourcebit-source-sanity');
 
-        expect(model2.fieldNames).toEqual(['contentType', 'fileName', 'url']);
+        expect(model2.fieldNames).toEqual(['contentType', 'fileName', 'url', 'metadata']);
         expect(model2.modelName).toBe('__asset');
         expect(model2.projectEnvironment).toBe(mockOptions.dataset);
         expect(model2.projectId).toBe(mockOptions.projectId);
@@ -380,7 +380,7 @@ describe('`transform()`', () => {
         expect(model1.projectId).toBe(mockOptions.projectId);
         expect(model1.source).toBe('sourcebit-source-sanity');
 
-        expect(model2.fieldNames).toEqual(['contentType', 'fileName', 'url']);
+        expect(model2.fieldNames).toEqual(['contentType', 'fileName', 'url', 'metadata']);
         expect(model2.modelName).toBe('__asset');
         expect(model2.projectEnvironment).toBe(mockOptions.dataset);
         expect(model2.projectId).toBe(mockOptions.projectId);
