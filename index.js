@@ -95,6 +95,19 @@ module.exports.options = {
     watch: {
         default: false,
         runtimeParameter: 'watch'
+    },
+    serializers: {
+        default: {},
+        marks: {
+            default: {
+                annotations: {
+                    default: [],
+                },
+            }
+        },
+        types: {
+            default: {},
+        },
     }
 };
 
