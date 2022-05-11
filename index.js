@@ -10,7 +10,8 @@ module.exports.getOptionsFromSetup = ({ answers }) => {
         accessToken: answers.accessToken,
         dataset: answers.dataset,
         projectId: answers.projectId,
-        useCdn: answers.useCdn
+        useCdn: answers.useCdn,
+        listenerReconnectTimer: answers.listenerReconnectTimer
     };
 };
 
@@ -95,6 +96,9 @@ module.exports.options = {
     watch: {
         default: false,
         runtimeParameter: 'watch'
+    },
+    listenerReconnectTimer: {
+        default: 1000 * 60 * 20
     }
 };
 
@@ -114,40 +118,52 @@ module.exports.bootstrap = async ({ getPluginContext, options, refresh, setPlugi
             [entry._id]: entry
         };
     }, {});
-    const debouncedRefresh = debounce(refresh, 500);
 
     setPluginContext({
         entries: entriesById
     });
 
     if (options.watch) {
-        client.listen(options.query, options.queryParameters).subscribe(update => {
-            const { documentId } = update;
-
-            if (!documentId) return;
-
-            const { entries } = getPluginContext();
-
-            if (update.transition === 'appear' || update.transition === 'update') {
-                const updatedEntries = { ...entries, [documentId]: update.result };
-
-                setPluginContext({
-                    entries: updatedEntries
-                });
-
-                debouncedRefresh();
-            } else if (update.transition === 'disappear') {
-                const { [documentId]: removedEntry, ...remainingEntries } = entries;
-
-                setPluginContext({
-                    entries: remainingEntries
-                });
-
-                debouncedRefresh();
-            }
-        });
+        let changeListener = createSanityListener(client, options, refresh, getPluginContext, setPluginContext);
+        // periodically recreate sanity listener in case it disconnects.
+        if (options.listenerReconnectTimer) {
+            setInterval(() => {
+                const newListener = createSanityListener(client, options, refresh, getPluginContext, setPluginContext);
+                changeListener.unsubscribe();
+                changeListener = newListener;
+            }, options.listenerReconnectTimer);
+        }
     }
 };
+
+function createSanityListener(client, options, refresh, getPluginContext, setPluginContext) {
+    const debouncedRefresh = debounce(refresh, 500);
+    return client.listen(options.query, options.queryParameters).subscribe(update => {
+        const { documentId } = update;
+
+        if (!documentId) return;
+
+        const { entries } = getPluginContext();
+
+        if (update.transition === 'appear' || update.transition === 'update') {
+            const updatedEntries = { ...entries, [documentId]: update.result };
+
+            setPluginContext({
+                entries: updatedEntries
+            });
+
+            debouncedRefresh();
+        } else if (update.transition === 'disappear') {
+            const { [documentId]: removedEntry, ...remainingEntries } = entries;
+
+            setPluginContext({
+                entries: remainingEntries
+            });
+
+            debouncedRefresh();
+        }
+    });
+}
 
 module.exports.transform = ({ data, getPluginContext, options }) => {
     // If preview is not explicitly set, we default to `true` when in watch mode.
