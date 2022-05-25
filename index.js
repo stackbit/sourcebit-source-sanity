@@ -1,6 +1,6 @@
 const pkg = require('./package.json');
+const _ = require('lodash');
 const sanityClient = require('@sanity/client');
-const { debounce } = require('./lib/misc-util');
 const { parseEntryId, normalizeEntries } = require('./lib/sanity-util');
 
 module.exports.name = pkg.name;
@@ -137,7 +137,7 @@ module.exports.bootstrap = async ({ getPluginContext, options, refresh, setPlugi
 };
 
 function createSanityListener(client, options, refresh, getPluginContext, setPluginContext) {
-    const debouncedRefresh = debounce(refresh, 500, true);
+    const debouncedRefresh = _.debounce(refresh, 500, { leading: true, trailing: true });
     return client.listen(options.query, options.queryParameters).subscribe(update => {
         const { documentId } = update;
 
