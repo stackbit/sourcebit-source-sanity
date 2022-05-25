@@ -181,10 +181,8 @@ module.exports.transform = ({ data, getPluginContext, options }) => {
             return result;
         }
 
-        return {
-            ...result,
-            [canonicalId]: entries[entryId]
-        };
+        result[canonicalId] = entries[entryId];
+        return result;
     }, {});
 
     // Normalizing entries and resolving links. They're also converted to an
