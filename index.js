@@ -137,7 +137,11 @@ module.exports.bootstrap = async ({ getPluginContext, options, refresh, setPlugi
 };
 
 function createSanityListener(client, options, refresh, getPluginContext, setPluginContext) {
-    const debouncedRefresh = _.debounce(refresh, 500, { leading: true, trailing: true });
+    const debouncedRefresh = _.debounce(refresh, 500, {
+        leading: true,
+        trailing: true,
+        maxWait: 500
+    });
     return client.listen(options.query, options.queryParameters).subscribe(update => {
         const { documentId } = update;
 
