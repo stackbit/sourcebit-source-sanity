@@ -269,7 +269,6 @@ describe('`normalizeEntries()`', () => {
             {
                 __metadata: {
                     id: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
-                    canonicalId: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
                     source: 'sourcebit-source-sanity',
                     modelName: '__asset',
                     projectId: 'my-project-id',
@@ -338,7 +337,6 @@ describe('`normalizeEntries()`', () => {
             {
                 __metadata: {
                     id: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
-                    canonicalId: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
                     source: 'sourcebit-source-sanity',
                     modelName: '__asset',
                     projectId: 'my-project-id',
@@ -375,7 +373,6 @@ describe('`normalizeEntries()`', () => {
         expect(normalizedEntries[0].mixedArray1[2]).toEqual({
             __metadata: {
                 id: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
-                canonicalId: 'image-48ef6974717f0ff28c9fe64392d487423c5f041b-1000x667-jpg',
                 source: 'sourcebit-source-sanity',
                 modelName: '__asset',
                 projectId: 'my-project-id',
