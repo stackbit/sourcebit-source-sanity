@@ -1,6 +1,6 @@
 {
     "name": "sourcebit-source-sanity",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "description": "A Sanity plugin for Sourcebit",
     "main": "index.js",
     "scripts": {
