@@ -171,7 +171,7 @@ function createSanityListener(client, options, refresh, getPluginContext, setPlu
 
 module.exports.transform = ({ data, getPluginContext, options }) => {
     // If preview is not explicitly set, we default to `true` when in watch mode.
-    const isPreview = options.preview !== undefined ? options.preview : options.watch;
+    const isPreview = options.isPreview !== undefined ? options.isPreview : options.watch;
     const { entries = {} } = getPluginContext();
 
     // Merging published entries with drafts.
